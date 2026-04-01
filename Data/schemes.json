@@ -1,0 +1,60 @@
+[{
+  "scheme_name": "PM Kisan Samman Nidhi",
+  "scheme_id": "pm_kisan",
+  "description": "Income support scheme for farmers",
+  "benefit": "₹6000 per year",
+  "apply_link": "https://pmkisan.gov.in",
+  "eligibility": {
+    "is_farmer": true,
+    "owns_agricultural_land": true,
+    "is_government_employee": false,
+    "is_income_tax_payer": false
+  }
+},
+
+{
+  "scheme_name": "Pradhan Mantri Awas Yojana",
+  "scheme_id": "pmay",
+  "benefit": "Subsidized housing assistance",
+  "apply_link": "https://pmaymis.gov.in",
+  "eligibility": {
+    "age_min": 18,
+    "owns_pucca_house": false,
+    "annual_income_max": 1800000
+  }
+},
+
+{
+  "scheme_name": "Ayushman Bharat",
+  "scheme_id": "pmjay",
+  "benefit": "₹5 lakh health insurance per family",
+  "apply_link": "https://pmjay.gov.in",
+  "eligibility": {
+    "annual_income_max": 300000,
+    "has_ration_card": true
+  }
+},
+
+{
+  "scheme_name": "Pradhan Mantri Mudra Yojana",
+  "scheme_id": "mudra",
+  "benefit": "Business loans up to ₹10 lakh",
+  "apply_link": "https://mudra.org.in",
+  "eligibility": {
+    "age_min": 18,
+    "is_business_owner": true,
+    "loan_amount_max": 1000000
+  }
+},
+
+{
+  "scheme_name": "National Scholarship (NSP)",
+  "scheme_id": "nsp",
+  "benefit": "Education scholarship support",
+  "apply_link": "https://scholarships.gov.in",
+  "eligibility": {
+    "is_student": true,
+    "annual_income_max": 250000,
+    "previous_exam_passed": true
+  }
+}]
