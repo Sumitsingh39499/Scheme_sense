@@ -46,11 +46,6 @@ Instead of navigating multiple government portals and complex eligibility rules,
 
 ---
 
-## 📸 Screenshots
-
-> *(Add screenshots of your frontend UI here — this is mandatory for impact)*
-
----
 
 ## ⚙️ Tech Stack
 
@@ -61,31 +56,6 @@ Instead of navigating multiple government portals and complex eligibility rules,
 
 ---
 
-## ▶️ How to Run Locally
-
-### 1. Clone the repository
-
-```
-git clone https://github.com/Sumitsingh39499/Scheme_sense.git
-cd Scheme_sense
-```
-
-### 2. Run Backend
-
-```
-cd Backend
-python main.py
-```
-
-### 3. Run Frontend
-
-```
-cd Frontend
-npm install
-npm run dev
-```
-
----
 
 ## 📊 Example Output
 
