@@ -49,8 +49,8 @@ Instead of navigating multiple government portals and complex eligibility rules,
 
 ## ⚙️ Tech Stack
 
-* **Frontend:** React (Vite)
-* **Backend:** Python (Flask / FastAPI)
+* **Frontend:** React
+* **Backend:** Python (FastAPI)
 * **Data Layer:** JSON (schemes dataset)
 * **AI Layer:** LLM-based explanation generator
 
