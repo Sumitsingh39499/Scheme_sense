@@ -6,28 +6,7 @@ with open(file_path,'r') as file:
         schemes=json.load(file)
 
 
-
-FIELD_EXPLANATION = {
-    "is_farmer": "You are a farmer",
-    "owns_agricultural_land": "You own agricultural land",
-    "is_government_employee": "You are a government employee",
-    "is_income_tax_payer": "You pay income tax",
-    "owns_pucca_house": "You own a pucca house",
-    "has_ration_card": "You have a ration card",
-    "is_business_owner": "You are a business owner",
-    "is_student": "You are a student",
-    "highest_education":"Whats your highest education",
-    "previous_exam_passed": " passed the previous exam"
-}
-
-NUMERIC_FIELDS = {
-    "age": "Your age",
-    "annual_income": "Your annual income",
-    "loan_amount": "Your requested loan amount"
-}
-
-
-def check_elegibility(user_input):
+def check_eligibility(user_input):
         eligible_schemes = []
         not_eligible_schemes = []
 
@@ -40,46 +19,75 @@ def check_elegibility(user_input):
                         #min
                         if rule_key.endswith('_min'):
                                 user_key=rule_key.replace('_min','')
-                                field_name = NUMERIC_FIELDS.get(user_key, user_key)
+                                user_value = user_input.get(user_key, 0)
 
-                                if user_input.get(user_key,0)<rule_value:
+                                if user_value < rule_value:
                                         eligible = False
-                                        fail_reasons.append(f"{field_name}does not satisfy the limit")   
+                                        fail_reasons.append({
+                                                "type": "numeric_min",
+                                                "field": user_key,
+                                                "user_value": user_value,
+                                                "limit": rule_value
+                                        })
+
                                 else:
-                                     pass_reasons.append(f"{field_name} satisfy the limit")
+                                     pass_reasons.append({
+                                                "type": "numeric_min_pass",
+                                                "field": user_key
+                                        })
 
                         #max
                         elif rule_key.endswith('_max'):
                                 user_key=rule_key.replace('_max','')
-                                field_name = NUMERIC_FIELDS.get(user_key, user_key)
-                                if user_input.get(user_key,0)>rule_value:
+                                user_value=user_input.get(user_key,0)
+                                if user_value>rule_value:
                                         eligible = False
-                                        fail_reasons.append(f"{field_name} is more then allowed limit")
+                                        fail_reasons.append({
+                                        "type": "numeric_max",
+                                        "field": user_key,
+                                        "user_value": user_value,
+                                        "limit": rule_value
+                                })
+
                                         
                                 else:
-                                        pass_reasons.append(f"{field_name} is within allowed limit")
+                                        pass_reasons.append({
+                                                "type": "numeric_max_pass",
+                                                "field": user_key
+                                        })
 
                         #bool
                         elif isinstance(rule_value, bool):
-                                message = FIELD_EXPLANATION.get(rule_key, rule_key)
-                                if user_input.get(rule_key) != rule_value:
+                                user_value=user_input.get(rule_key)
+                                if user_value != rule_value:
                                         eligible = False
-                                        if rule_value is True:
-                                                fail_reasons.append(f"{message},which is not satisfying")
-                                        else:
-                                                fail_reasons.append(f"You are {message.lower()}, which is not satisfying")
-                                        
+                                        fail_reasons.append({
+                                                "type": "boolean",
+                                                "field": rule_key,
+                                                "expected": rule_value,
+                                                "actual": user_value
+                                        })
                                 else:
-                                        pass_reasons.append(message)
+                                        pass_reasons.append({
+                                                "type": "numeric_min_pass",
+                                                "field": rule_key
+                                        })
                         #str
                         else:
-                                message = FIELD_EXPLANATION.get(rule_key,rule_key)
-
-                                if user_input.get(rule_key)==rule_value:
+                                user_value=user_input.get(rule_key)
+                                if user_value!=rule_value:
                                         eligible= False
-                                        fail_reasons.append(f"You are {message.lower()}, which is not satisfying")
+                                        fail_reasons.append({
+                                                "type": "boolean",
+                                                "field": rule_key,
+                                                "expected": rule_value,
+                                                "actual": user_value
+                                        })
                                 else:
-                                        pass_reasons.append(message)
+                                        pass_reasons.append({
+                                                "type": "numeric_min_pass",
+                                                "field": rule_key
+                                        })
                 
 
                                        
@@ -88,15 +96,15 @@ def check_elegibility(user_input):
                               "scheme_name": scheme["scheme_name"],
                               "benefit": scheme["benefit"],
                               "apply_link": scheme["apply_link"],
-                              "reason":pass_reasons
+                              "details":pass_reasons
                               })
                 else:
                         not_eligible_schemes.append({
                                 "scheme_name": scheme["scheme_name"],
-                                "reason":fail_reasons
+                                "details":fail_reasons
                                 })
 
         return {
                 "eligible":eligible_schemes,
-                "not_eligible":not_eligible_schemes,
+                "not_eligible":not_eligible_schemes
                 }
