@@ -24,12 +24,12 @@ def check_eligibility(user_input):
                                 if user_value < rule_value:
                                         eligible = False
                                         fail_reasons.append({
-                                                "type": "numeric_min",
+                                                "type":"numeric_min",
                                                 "field": user_key,
                                                 "user_value": user_value,
                                                 "limit": rule_value
                                         })
-
+                                        break
                                 else:
                                      pass_reasons.append({
                                                 "type": "numeric_min_pass",
@@ -43,13 +43,12 @@ def check_eligibility(user_input):
                                 if user_value>rule_value:
                                         eligible = False
                                         fail_reasons.append({
-                                        "type": "numeric_max",
-                                        "field": user_key,
-                                        "user_value": user_value,
-                                        "limit": rule_value
-                                })
-
-                                        
+                                                "type":"numeric_max",
+                                                "field": user_key,
+                                                "user_value": user_value,
+                                                "limit": rule_value
+                                        })
+                                        break
                                 else:
                                         pass_reasons.append({
                                                 "type": "numeric_max_pass",
@@ -62,14 +61,15 @@ def check_eligibility(user_input):
                                 if user_value != rule_value:
                                         eligible = False
                                         fail_reasons.append({
-                                                "type": "boolean",
+                                                "type":"boolean",
                                                 "field": rule_key,
                                                 "expected": rule_value,
                                                 "actual": user_value
                                         })
+                                        break
                                 else:
                                         pass_reasons.append({
-                                                "type": "numeric_min_pass",
+                                                "type": "boolean_pass",
                                                 "field": rule_key
                                         })
                         #str
@@ -78,11 +78,12 @@ def check_eligibility(user_input):
                                 if user_value!=rule_value:
                                         eligible= False
                                         fail_reasons.append({
-                                                "type": "boolean",
+                                                "type":"string",
                                                 "field": rule_key,
                                                 "expected": rule_value,
                                                 "actual": user_value
                                         })
+                                        break
                                 else:
                                         pass_reasons.append({
                                                 "type": "numeric_min_pass",

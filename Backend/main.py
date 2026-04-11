@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from eligibility_engine import check_eligibility
 from pydantic import BaseModel
 from ai_explainer import generate_ai_explanation
+from fastapi.middleware.cors import CORSMiddleware
 
 class UserInput(BaseModel):
     age: int
@@ -20,6 +21,14 @@ class UserInput(BaseModel):
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # allow all origins (for development)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.post("/check-eligibility")
 def check(user_input: UserInput):
@@ -30,12 +39,15 @@ def check(user_input: UserInput):
 
         # Add AI explanation to NOT ELIGIBLE schemes
         for scheme in result["not_eligible"]:
-            explanation = generate_ai_explanation(
-                data,
-                scheme["scheme_name"],
-                scheme["details"]
-            )
-            scheme["ai_explanation"] = explanation
+            try:
+                explanation = generate_ai_explanation(
+                    data,
+                    scheme["scheme_name"],
+                    scheme["details",[]]
+                )
+                scheme["ai_explanation"] = explanation
+            except Exception:
+                scheme["ai_explanation"]="you are not eligible based on provided criteria"
 
         return result
 
