@@ -7,7 +7,7 @@ import image5 from "./assets/image5.webp";
 import image6 from "./assets/image6.png";
 import image7 from "./assets/image7.webp";
 import image8 from "./assets/image8.webp";
-import "./Slide.css";
+import "./slide.css";
 
 function Slideshow() {
   const images = [image1, image2, image3,image4,image5,image6,image7,image8];
