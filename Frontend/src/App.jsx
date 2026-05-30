@@ -6,7 +6,6 @@ import ResultComponent from "./ResultComponent";
 
 function App() {
   const [result, setResult] = useState(null);
-
   return (
     <div>
       <Router>

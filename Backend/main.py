@@ -4,6 +4,12 @@ from pydantic import BaseModel
 from ai_explainer import generate_ai_explanation
 from fastapi.middleware.cors import CORSMiddleware
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+PORT = int(os.getenv("PORT", 8000))
+
 class UserInput(BaseModel):
     age: int
     annual_income: int
